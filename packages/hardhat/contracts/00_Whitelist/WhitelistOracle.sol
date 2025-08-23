@@ -2,7 +2,6 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 import "./SimpleOracle.sol";
-import { Arrays } from "@openzeppelin/contracts/utils/Arrays.sol";
 
 contract WhitelistOracle {
     address public owner;
@@ -68,7 +67,9 @@ contract WhitelistOracle {
             validPrices[i] = prices[i];
         }
 
-        Arrays.sort(validPrices);
+        // NOTE: It is not efficient to sort onchain, but since we only have 10 oracles 
+        // and this is mimicking the early MakerDAO Medianizer exactly, it's fine
+        sort(validPrices);
 
         uint256 median;
         if (validCount % 2 == 0) {
@@ -105,5 +106,20 @@ contract WhitelistOracle {
         require(newOwner != address(0), "New owner cannot be zero address");
         require(newOwner != owner, "New owner cannot be the same as current owner");
         owner = newOwner;
+    }
+
+    function sort(uint[] memory arr) internal pure {
+        uint n = arr.length;
+        for (uint i = 0; i < n; i++) {
+            uint minIndex = i;
+            for (uint j = i + 1; j < n; j++) {
+                if (arr[j] < arr[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            if (minIndex != i) {
+                (arr[i], arr[minIndex]) = (arr[minIndex], arr[i]);
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ import { parseEther } from "viem";
 import { hardhat } from "viem/chains";
 import { useAccount, usePublicClient, useWalletClient } from "wagmi";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth";
-import { useGlobalState } from "~~/services/store/store";
+import { useChallengeState } from "~~/services/store/challengeStore";
 
 // This component is used to monitor the block timestamp and trigger a transaction if the timestamp has not changed for 3 seconds
 export const MonitorAndTriggerTx = () => {
@@ -17,7 +17,7 @@ export const MonitorAndTriggerTx = () => {
   const prevTimestampRef = useRef<bigint | null>(null);
   const currentTimestampRef = useRef<bigint | null>(null);
 
-  const { setTimestamp, refetchAssertionStates } = useGlobalState();
+  const { setTimestamp, refetchAssertionStates } = useChallengeState();
 
   useEffect(() => {
     if (!publicClient || !walletClient) return;

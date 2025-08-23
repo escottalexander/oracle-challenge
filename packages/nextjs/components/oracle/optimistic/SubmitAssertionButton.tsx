@@ -6,7 +6,7 @@ import { usePublicClient } from "wagmi";
 import TooltipInfo from "~~/components/TooltipInfo";
 import { IntegerInput } from "~~/components/scaffold-eth";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
-import { useGlobalState } from "~~/services/store/store";
+import { useChallengeState } from "~~/services/store/challengeStore";
 import { getRandomQuestion } from "~~/utils/helpers";
 import { notification } from "~~/utils/scaffold-eth";
 
@@ -31,7 +31,7 @@ interface SubmitAssertionModalProps {
 }
 
 const SubmitAssertionModal = ({ isOpen, onClose }: SubmitAssertionModalProps) => {
-  const { timestamp } = useGlobalState();
+  const { timestamp } = useChallengeState();
   const [isLoading, setIsLoading] = useState(false);
   const publicClient = usePublicClient();
 

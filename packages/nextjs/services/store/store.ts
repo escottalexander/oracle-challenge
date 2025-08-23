@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { AssertionWithIdAndState } from "~~/components/oracle/types";
 import scaffoldConfig from "~~/scaffold.config";
 import { ChainWithAttributes } from "~~/utils/scaffold-eth";
 
@@ -21,16 +20,6 @@ type GlobalState = {
   setIsNativeCurrencyFetching: (newIsNativeCurrencyFetching: boolean) => void;
   targetNetwork: ChainWithAttributes;
   setTargetNetwork: (newTargetNetwork: ChainWithAttributes) => void;
-  // Block timestamp tracking
-  timestamp: bigint | null;
-  setTimestamp: (timestamp: bigint | null) => void;
-  // Optimistic Oracle
-  refetchAssertionStates: () => void;
-  setRefetchAssertionStates: (refetchFn: () => void) => void;
-  // Assertion Modal
-  openAssertion: AssertionWithIdAndState | null;
-  openAssertionModal: (assertion: AssertionWithIdAndState) => void;
-  closeAssertionModal: () => void;
 };
 
 export const useGlobalState = create<GlobalState>(set => ({
@@ -44,18 +33,4 @@ export const useGlobalState = create<GlobalState>(set => ({
     set(state => ({ nativeCurrency: { ...state.nativeCurrency, isFetching: newValue } })),
   targetNetwork: scaffoldConfig.targetNetworks[0],
   setTargetNetwork: (newTargetNetwork: ChainWithAttributes) => set(() => ({ targetNetwork: newTargetNetwork })),
-  // Block timestamp tracking
-  timestamp: null,
-  setTimestamp: (timestamp: bigint | null): void => set(() => ({ timestamp })),
-  // Optimistic Oracle
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  refetchAssertionStates: () => {},
-  setRefetchAssertionStates: (refetchFn: () => void) => set(() => ({ refetchAssertionStates: refetchFn })),
-  // Assertion Modal
-  openAssertion: null,
-  openAssertionModal: (assertion: AssertionWithIdAndState) =>
-    set(state => ({
-      openAssertion: assertion,
-    })),
-  closeAssertionModal: () => set(() => ({ openAssertion: null })),
 }));

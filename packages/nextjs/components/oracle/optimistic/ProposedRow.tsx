@@ -5,10 +5,10 @@ import { TimeLeft } from "./TimeLeft";
 import { formatEther } from "viem";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
-import { useGlobalState } from "~~/services/store/store";
+import { useChallengeState } from "~~/services/store/challengeStore";
 
 export const ProposedRow = ({ assertionId, state }: OORowProps) => {
-  const { openAssertionModal } = useGlobalState();
+  const { openAssertionModal } = useChallengeState();
   const { data: assertionData } = useScaffoldReadContract({
     contractName: "OptimisticOracle",
     functionName: "getAssertion",

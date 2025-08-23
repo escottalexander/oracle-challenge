@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGlobalState } from "~~/services/store/store";
+import { useChallengeState } from "~~/services/store/challengeStore";
 
 function formatDuration(seconds: number, isPending: boolean) {
   const totalSeconds = Math.max(seconds, 0);
@@ -9,7 +9,7 @@ function formatDuration(seconds: number, isPending: boolean) {
 }
 
 export const TimeLeft = ({ startTime, endTime }: { startTime: bigint; endTime: bigint }) => {
-  const { timestamp, refetchAssertionStates } = useGlobalState();
+  const { timestamp, refetchAssertionStates } = useChallengeState();
   const [currentTime, setCurrentTime] = useState<number>(0);
 
   // Update current time every second

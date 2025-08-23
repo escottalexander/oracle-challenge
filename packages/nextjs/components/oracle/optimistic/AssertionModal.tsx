@@ -5,7 +5,7 @@ import { AssertionWithIdAndState } from "../types";
 import { formatEther } from "viem";
 import { Address } from "~~/components/scaffold-eth";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
-import { useGlobalState } from "~~/services/store/store";
+import { useChallengeState } from "~~/services/store/challengeStore";
 import { ZERO_ADDRESS } from "~~/utils/scaffold-eth/common";
 
 const getStateName = (state: number) => {
@@ -90,7 +90,7 @@ const Description = ({ assertion }: { assertion: AssertionWithIdAndState }) => {
 
 export const AssertionModal = () => {
   const [isActionPending, setIsActionPending] = useState(false);
-  const { refetchAssertionStates, openAssertion, closeAssertionModal } = useGlobalState();
+  const { refetchAssertionStates, openAssertion, closeAssertionModal } = useChallengeState();
 
   const isOpen = !!openAssertion;
 

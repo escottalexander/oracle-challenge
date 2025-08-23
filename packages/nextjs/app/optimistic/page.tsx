@@ -11,7 +11,7 @@ import { ProposedTable } from "~~/components/oracle/optimistic/ProposedTable";
 import { SettledTable } from "~~/components/oracle/optimistic/SettledTable";
 import { SubmitAssertionButton } from "~~/components/oracle/optimistic/SubmitAssertionButton";
 import { useDeployedContractInfo, useScaffoldReadContract } from "~~/hooks/scaffold-eth";
-import { useGlobalState } from "~~/services/store/store";
+import { useChallengeState } from "~~/services/store/challengeStore";
 
 // Loading spinner component
 const LoadingSpinner = () => (
@@ -21,7 +21,7 @@ const LoadingSpinner = () => (
 );
 
 const Home: NextPage = () => {
-  const setRefetchAssertionStates = useGlobalState(state => state.setRefetchAssertionStates);
+  const setRefetchAssertionStates = useChallengeState(state => state.setRefetchAssertionStates);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
 
   const { data: nextAssertionId, isLoading: isLoadingNextAssertionId } = useScaffoldReadContract({
